@@ -55,7 +55,9 @@ func (s *server) Convert(ctx context.Context, req *pb.CurrencyConvertRequest) (*
 		return &pb.CurrencyConvertResponse{}, fmt.Errorf("unsupported currency: %s", req.ToCurrency)
 	}
 
-	convertedAmount := fromCurrency.convertFromBase(toCurrency.convertToBase(req.Amount))
+	fmt.Println(fromCurrency.convertToBase(req.Amount))
+	fmt.Println(toCurrency.convertFromBase(fromCurrency.convertToBase(req.Amount)))
+	convertedAmount := toCurrency.convertFromBase(fromCurrency.convertToBase(req.Amount))
 	return &pb.CurrencyConvertResponse{Amount: convertedAmount}, nil
 }
 
